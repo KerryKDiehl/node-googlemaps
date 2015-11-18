@@ -25,18 +25,12 @@ describe('checkAndConvertPoint', function() {
   });
 
   describe('Using incorrect lat/lng input (an object)', function() {
-    var result;
-    try{
-      result = gm.checkAndConvertPoint({'lat': 41.874929479660025, 'lng': -87.62077331542969});
-    }catch(e){
-      result = e;
-    }
 
-    it('exception caught is an Error', function() {
-      should(result).be.Error();
+    it('should throw an exception', function() {
+      (function() {
+        return gm.checkAndConvertPoint({'lat': 41.874929479660025, 'lng': -87.62077331542969})
+      }).should.throw('Unrecognized input: checkAndConvertPoint accepts Arrays of Numbers and Strings');
     });
-    it('error thrown was checkAndConvertPoint\'s error', function() {
-      should.ok(result.message.search('checkAndConvertPoint') > 0);
-    });
+
   });
 });
